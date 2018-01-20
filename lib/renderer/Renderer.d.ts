@@ -1,0 +1,32 @@
+import { ITerminal, ITheme } from '../Interfaces';
+import { ColorManager } from './ColorManager';
+import { IColorSet, IRenderer, IRenderDimensions } from './Interfaces';
+import { EventEmitter } from '../EventEmitter';
+export declare class Renderer extends EventEmitter implements IRenderer {
+    private _terminal;
+    private _refreshRowsQueue;
+    private _refreshAnimationFrame;
+    private _renderLayers;
+    private _devicePixelRatio;
+    private _screenDprMonitor;
+    private _isPaused;
+    private _needsFullRefresh;
+    colorManager: ColorManager;
+    dimensions: IRenderDimensions;
+    constructor(_terminal: ITerminal, theme: ITheme);
+    onIntersectionChange(entry: IntersectionObserverEntry): void;
+    onWindowResize(devicePixelRatio: number): void;
+    setTheme(theme: ITheme): IColorSet;
+    onResize(cols: number, rows: number, didCharSizeChange: boolean): void;
+    onCharSizeChanged(): void;
+    onBlur(): void;
+    onFocus(): void;
+    onSelectionChanged(start: [number, number], end: [number, number]): void;
+    onCursorMove(): void;
+    onOptionsChanged(): void;
+    clear(): void;
+    private _runOperation(operation);
+    queueRefresh(start: number, end: number): void;
+    private _refreshLoop();
+    private _updateDimensions();
+}

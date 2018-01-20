@@ -1,7 +1,8 @@
 node_modules/
 *.swp
 .lock-wscript
-lib/
+# Ship everything in the lib directory for this branch
+# lib/
 Makefile.gyp
 *.Makefile
 *.target.gyp.mk
